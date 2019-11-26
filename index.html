@@ -16,6 +16,9 @@
 		<span>Enter The Number Of Letters Hire : </span>
 		<input  type="number" id="number" placeholder="Enter The Number Of Letters">
 		<button id="start">Generate</button>
+		<button id="" onclick="window.localStorage.clear()">Clear Storage</button>
+		<button id="his">SHow History Generator BTN</button>
+		<button id="letters">SHow History LETTERS BTN</button>
 	</div>
 	<div id="let">
 
@@ -23,6 +26,75 @@
 	<div class="img">
 			<img src="" id="img">
 	</div> 
+	<div id="showHistory">
+		<table>
+			<tr>
+
+			</tr>
+		</table>
+	</div>
 	<script src="main.js"></script>
+	<script>
+		var showHistory = document.getElementById('showHistory');
+		var his = document.getElementById('his');
+		var l = document.getElementById('letters');
+		his.onclick = function () {
+			if(localStorage.getItem('btnGenerateClick') === null){
+				h1 = document.createElement('h1');
+				txt = document.createTextNode('nothing in Storage');
+				h1.appendChild(txt);
+				showHistory.appendChild(h1);
+				return ;
+			}
+			h1 = document.createElement('h1');
+			txt = document.createTextNode('History Of Generate Button ');
+			h1.appendChild(txt);
+			//showHistory.appendChild(h1);
+			let btnGenerateClick = localStorage.getItem('btnGenerateClick');
+			btnGenerateClick = JSON.parse(btnGenerateClick);
+			showHistory.firstElementChild.setAttribute('class','table');
+			showHistory.firstElementChild.innerHTML = "";
+			showHistory.firstElementChild.innerHTML += 
+				"<td>  Date OF Action </td>"+
+				"<td>  Number Of Letters Generated </td>";
+			
+			for(var i=0;i<btnGenerateClick.btnGenerateClick.length;i++){
+
+				showHistory.firstElementChild.innerHTML += 
+				"<td>  " + btnGenerateClick.btnGenerateClick[i][0]+"</td>"+
+				"<td>  " + btnGenerateClick.btnGenerateClick[i][1]+"</td>";
+			}
+		}
+		l.onclick = function () {
+			if(localStorage.getItem('btnLetterClick') === null){
+				h1 = document.createElement('h1');
+				txt = document.createTextNode('nothing in Storage');
+				h1.appendChild(txt);
+				showHistory.appendChild(h1);
+				return ;
+			}
+			h1 = document.createElement('h1');
+			txt = document.createTextNode('History Of Generate Button ');
+			h1.appendChild(txt);
+			//showHistory.appendChild(h1);
+			let btnLetterClick = localStorage.getItem('btnLetterClick');
+			btnLetterClick = JSON.parse(btnLetterClick);
+			showHistory.firstElementChild.setAttribute('class','table');
+			showHistory.firstElementChild.innerHTML = "";
+			showHistory.firstElementChild.innerHTML += 
+				"<td>  Date OF Action </td>"+
+				"<td>  Number Of Letters Generated </td>";
+
+			
+			for(var i=0;i<btnLetterClick.btnLetterClick.length;i++){
+
+				showHistory.firstElementChild.innerHTML += 
+				"<td>  " + btnLetterClick.btnLetterClick[i][0]+"</td>"+
+				"<td>  " + btnLetterClick.btnLetterClick[i][1]+"</td>";
+			}
+		}
+		
+
+	</script>
 </body>
 </html>
