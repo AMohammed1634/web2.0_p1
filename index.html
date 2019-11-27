@@ -53,16 +53,22 @@
 			let btnGenerateClick = localStorage.getItem('btnGenerateClick');
 			btnGenerateClick = JSON.parse(btnGenerateClick);
 			showHistory.firstElementChild.setAttribute('class','table');
-			showHistory.firstElementChild.innerHTML = "";
+			showHistory.firstElementChild.innerHTML ="";
 			showHistory.firstElementChild.innerHTML += 
+				"<td>  Number </td>"+
 				"<td>  Date OF Action </td>"+
+				"<td>  Type </td>"+
+				
 				"<td>  Number Of Letters Generated </td>";
+
 			
 			for(var i=0;i<btnGenerateClick.btnGenerateClick.length;i++){
 
 				showHistory.firstElementChild.innerHTML += 
-				"<td>  " + btnGenerateClick.btnGenerateClick[i][0]+"</td>"+
-				"<td>  " + btnGenerateClick.btnGenerateClick[i][1]+"</td>";
+				"<td>  " + (i+1)+"</td>"+
+				"<td>  " + btnGenerateClick.btnGenerateClick[i].dNow+"</td>"+
+				"<td>  " + btnGenerateClick.btnGenerateClick[i].type+"</td>"+
+				"<td>  " + btnGenerateClick.btnGenerateClick[i].name+"</td>";
 			}
 		}
 		l.onclick = function () {
@@ -82,15 +88,20 @@
 			showHistory.firstElementChild.setAttribute('class','table');
 			showHistory.firstElementChild.innerHTML = "";
 			showHistory.firstElementChild.innerHTML += 
+				"<td>  Number </td>"+
 				"<td>  Date OF Action </td>"+
+				"<td>  Type </td>"+
+				
 				"<td>  Number Of Letters Generated </td>";
 
 			
 			for(var i=0;i<btnLetterClick.btnLetterClick.length;i++){
 
 				showHistory.firstElementChild.innerHTML += 
-				"<td>  " + btnLetterClick.btnLetterClick[i][0]+"</td>"+
-				"<td>  " + btnLetterClick.btnLetterClick[i][1]+"</td>";
+				"<td>  " + (i+1)+"</td>"+
+				"<td>  " + btnLetterClick.btnLetterClick[i].dNow+"</td>"+
+				"<td>  " + btnLetterClick.btnLetterClick[i].type+"</td>"+
+				"<td>  " + btnLetterClick.btnLetterClick[i].name+"</td>";
 			}
 		}
 		

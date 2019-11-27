@@ -23,7 +23,7 @@ var img = document.getElementById('img');
 // localStorage.clear();
 // window.localStorage.clear()
 //setInterval( ()=> window.localStorage.clear() ,20000);
-btnGenerate.addEventListener('click',function(){
+btnGenerate.addEventListener('click',function(e){
 
     btnsContainer.innerHTML = "";
     let num = validNumber(txtNumber.value );
@@ -36,17 +36,20 @@ btnGenerate.addEventListener('click',function(){
         //Is Stored In LocalStorage
         let str = "btn Generate IS  Clicked At "+new Date().toLocaleString()+
             " to generate "+num +" character";
-        str = [new Date().toLocaleString() , num];
+        str = new eventOBJ(e.target,e.type,num) ;
+        // console.log(str);
         let btnGenerateClick = JSON.parse(localStorage.getItem('btnGenerateClick'));
         // console.log(btnGenerateClick);
         btnGenerateClick.btnGenerateClick.push(str);
+        // console.log(btnGenerateClick.btnGenerateClick[btnGenerateClick.btnGenerateClick.length-1]);
         localStorage.setItem('btnGenerateClick',JSON.stringify(btnGenerateClick));
         console.log(btnGenerateClick);
     }else {
         //Is Not Stored
         let str = "btn Generate IS  Clicked At "+new Date().toLocaleString()+
             " to generate "+num+" character";
-        str = [new Date().toLocaleString() , num];
+        str = new eventOBJ(e.target,e.type,num) ;;
+        console.log(str);
         var btnGenerateClick = {
             'btnGenerateClick':[
 
@@ -61,7 +64,7 @@ btnGenerate.addEventListener('click',function(){
     var indexs = generatIndexs(num);
     // console.log(indexs);
     for(var i=0;i<indexs.length;i++){
-         console.log(indexs[i]+"  "+letters[indexs[i]]);
+        //  console.log(indexs[i]+"  "+letters[indexs[i]]);
         let node = document.createElement('button');
         node.setAttribute('class','btn');
         let txt = document.createTextNode(letters[indexs[i]].substr(7,1));
@@ -86,7 +89,8 @@ btnGenerate.addEventListener('click',function(){
                 //Is Stored In LocalStorage
                 let str = "btn button  Clicked At "+new Date().toLocaleString()+
                     " to  "+e.target.firstChild.textContent +" character";
-                str = [new Date().toLocaleString() , e.target.firstChild.textContent ];
+                // str = [new Date().toLocaleString() , e.target.firstChild.textContent ];
+                str = new eventOBJ(e.target,e.type,e.target.firstChild.textContent );
                 let btnLetterClick = JSON.parse(localStorage.getItem('btnLetterClick'));
                 // console.log(btnGenerateClick);
                 btnLetterClick.btnLetterClick.push(str);
@@ -96,7 +100,8 @@ btnGenerate.addEventListener('click',function(){
                 //Is Not Stored
                 let str = "btn button  Clicked At "+new Date().toLocaleString()+
                     " to  "+e.target.firstChild.textContent +" character";
-                str = [new Date().toLocaleString() , e.target.firstChild.textContent ];
+                // str = [new Date().toLocaleString() , e.target.firstChild.textContent ];
+                str = new eventOBJ(e.target,e.type,e.target.firstChild.textContent );
                 var btnLetterClick = {
                 'btnLetterClick':[
     
@@ -156,11 +161,12 @@ function validNumber(num){
     return num;
 }
 
-window.onload = function (){
+window.onload = function (e){
     if(localStorage.getItem('load') !== null){
         //Is Stored In LocalStorage
         
-        let str = new Date().toLocaleString() ;
+        // let str = new Date().toLocaleString() ;
+        str = new this.eventOBJ(e.target,e.type,"LOAD");
         let load = JSON.parse(localStorage.getItem('load'));
         // console.log(btnGenerateClick);
         load.load.push(str);
@@ -168,7 +174,8 @@ window.onload = function (){
         console.log(load);
     }else {
         //Is Not Stored
-        let str = new Date().toLocaleString() ;
+        // let str = new Date().toLocaleString() ;
+        str = new this.eventOBJ(e.target,e.type,"LOAD");
         var load = {
         'load':[
 
@@ -179,3 +186,43 @@ window.onload = function (){
         console.log(load);
     }
 }
+
+
+
+window.onunload = function (e){
+    if(localStorage.getItem('unload') !== null){
+        //Is Stored In LocalStorage
+        
+        // let str = new Date().toLocaleString() ;
+        str = new this.eventOBJ(e.target,e.type,"unload");
+        let unload = JSON.parse(localStorage.getItem('unload'));
+        // console.log(btnGenerateClick);
+        unload.unload.push(str);
+        localStorage.setItem('unload',JSON.stringify(load));
+        console.log(load);
+    }else {
+        //Is Not Stored
+        // let str = new Date().toLocaleString() ;
+        str = new this.eventOBJ(e.target,e.type,"unload");
+        var unload = {
+        'unload':[
+
+        ]
+        };
+        unload.unload.push(str);
+        localStorage.setItem('unload',JSON.stringify(load));
+        console.log(unload);
+    }
+}
+
+
+
+
+
+function eventOBJ (target,type,name){
+    this.dNow = new Date().toLocaleString();
+    this.target = target;
+    this.type = type;
+    this.name = name;
+}
+
