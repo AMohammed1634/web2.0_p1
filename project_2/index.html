@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="style.css">
+	<title>Learn English</title>
+</head>
+<body>
+	
+	<div class="container">
+		<h1 class="header">Learn The English Letters</h1>
+	</div>
+	<div class="container">
+		<span>Enter The Number Of Letters Hire : </span>
+		<input  type="number" id="number" placeholder="Enter The Number Of Letters">
+		<button id="start">Generate</button>
+		<button id="clear" onclick="//window.localStorage.clear()">Clear Storage</button>
+		<input id="asd" value="Get Data From MySql Server"  type="button">
+	</div>
+	<div id="let">
+
+	</div>
+	<div class="img">
+			<img src="" id="img">
+	</div> 
+
+	<table class="table" style="display: none">
+
+	</table>
+
+    <script src="jquery3.2.1.min.js"></script>
+    <script src="ajax_call.js"></script>
+	<script src="main.js"></script>
+	<script>
+
+		function showResult($result){
+			$result = JSON.parse($result);
+			$("table").html("<tr>\n" +
+					"\t\t\t<td>ID</td>\n" +
+					"\t\t\t<td>Name</td>\n" +
+					"\t\t\t<td>Type</td>\n" +
+					"\t\t\t<td>Target</td>\n" +
+					"\t\t\t<td>Date</td>\n" +
+					"\t\t</tr>");
+
+			for (var $i=0;$i<$result.length;$i++){
+				/**
+				 *console.log($result[$i].id);
+				 */
+				console.log($result[$i]);
+
+				$("table").append("<tr>" +
+						"<td>" + $result[$i].id +"</td>" +
+						"<td>" + $result[$i].action +"</td>" +
+						"<td>" + $result[$i].type +"</td>" +
+						"<td>" + $result[$i].target +"</td>" +
+						"<td>" + $result[$i].date +"</td>" +
+						"</tr>");
+				$("table").css({
+					"display":"inline-block",
+					"margin":"5px",
+					"padding":"7px"
+				});
+			}
+		}
+
+		$("#asd").on('click',() =>{
+			// alert("ASD");
+			callAPI('http://localhost/P2/Server.php?getAll=123',
+			    'GET',JSON.stringify(""),($x)=>{
+					showResult($x);
+			        // console.log($x);
+			    })
+		});
+
+		function callAPI($url, $method, $data, $action){
+			$.ajax({
+				"type":$method,
+				"url":$url,
+				"data":{
+					'oblects': {
+						"data":$data
+					}
+
+				},
+				"success":function (response){
+					$action(response);
+				}
+			})
+		}
+
+	</script>
+</body>
+</html>
